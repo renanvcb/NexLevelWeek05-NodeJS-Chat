@@ -1,5 +1,4 @@
 import { getCustomRepository, Repository } from "typeorm";
-
 import { Message } from "../entities/Message";
 import { MessagesRepository } from "../repositories/MessagesRepository";
 
@@ -10,11 +9,9 @@ interface IMessageCreate {
 }
 
 class MessagesService {
-  //Attribute available to class only
   private messagesRepository: Repository<Message>;
 
   constructor() {
-    //Selecting the repository
     this.messagesRepository = getCustomRepository(MessagesRepository);
   }
 
@@ -32,13 +29,12 @@ class MessagesService {
 
   async listByUser(user_id: string) {
     const list = await this.messagesRepository.find({
-
       where: { user_id },
       relations: ["user"],
     });
 
     return list;
-  };
+  }
 }
 
 export { MessagesService };

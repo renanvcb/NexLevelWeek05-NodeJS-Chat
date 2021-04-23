@@ -1,22 +1,20 @@
 import { Request, Response } from "express";
-
 import { SettingsService } from "../services/SettingsService";
 
 class SettingsController {
-  async create(request: Request, response: Response): Promise<Response> {
-    const { username, chat } = request.body;
+  async create(request: Request, response: Response) {
+    const { chat, username } = request.body;
 
     const settingsService = new SettingsService();
 
-    //Tries the regular process, if not able, treats errors
     try {
-      const settings = await settingsService.create({ username, chat });
+      const settings = await settingsService.create({ chat, username });
 
       return response.json(settings);
     } catch (err) {
-      return response.status(409).json({
-        message: err.message
-      })
+      return response.status(400).json({
+        message: err.message,
+      });
     }
   }
 
@@ -37,7 +35,6 @@ class SettingsController {
     const settingsService = new SettingsService();
 
     const settings = await settingsService.update(username, chat);
-
     return response.json(settings);
   }
 }

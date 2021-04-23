@@ -1,6 +1,13 @@
-import { Entity, PrimaryColumn, CreateDateColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
+import {
+  Entity,
+  PrimaryColumn,
+  CreateDateColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
 
+import { v4 as uuid } from "uuid";
 import { User } from "./User";
 
 @Entity("messages")
@@ -22,7 +29,7 @@ class Message {
   user_id: string;
 
   @CreateDateColumn()
-  created_at: Date
+  created_at: Date;
 
   constructor() {
     if (!this.id) {
